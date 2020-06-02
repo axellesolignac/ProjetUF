@@ -1,0 +1,5 @@
+Ce dossier correspond aux divers commentaires concernant les codes du web.
+
+- Nous avons rencontrés des problèmes pour l'authentification ce qui nous a fait perdre beaucoup de temps.
+- On a du refaire plusieurs fois les vms.
+- On a eu des problèmes de collaboration entre nos ordinateurs.
