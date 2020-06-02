@@ -11,7 +11,7 @@ import java.awt.event.*;
 
 /**
  *
- * @author Utilisateur
+ * @author Equipe B2B - B
  * cette classe sert a afficher le menu de gestion des agences
  */
 
@@ -25,25 +25,26 @@ public class GestionAgence implements ActionListener {
     public GestionAgence(Connexion cc) throws SQLException {
         this.connect = cc;
         try {
-            //Construction de la fenêtre 
+            /** construction de la fenêtre */
             fen = new JFrame();
             fen.setTitle("Gestion des agences");
             fen.setSize(370, 200);
             /*fen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);*/
             fen.setLayout(null);
             
-            // Bouton pour ajouter une agence
+            /** bouton pour ajouter une agence */
             add = new JButton("Ajouter une agence");
             add.setBounds(50, 20, 250, 40);
             add.addActionListener(this);
             fen.add(add);
 
-            //Bouton pour afficher les informations d'une agence
+            /** bouton pour afficher les informations d'une agence */
             info = new JButton("Afficher informations agence");
             info.setBounds(50, 70, 250, 40);
             info.addActionListener(this);
             fen.add(info);
 
+            /** met en visible */
             fen.setVisible(true);
         }
         catch (Exception e) {
@@ -55,11 +56,15 @@ public class GestionAgence implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent event) {
         try {
+            /** depend de l'origine du clic */
             if ( event.getSource() == add ) {
                 AjoutAgence aa = new AjoutAgence(connect);
             }
-            if ( event.getSource() == info ) {
+            else if ( event.getSource() == info ) {
                 RechercherAgence ra = new RechercherAgence(connect);
+            }
+            else {
+                System.out.println("Erreur dans les boutons de gestion agences");
             }
         }
         catch (Exception e) {

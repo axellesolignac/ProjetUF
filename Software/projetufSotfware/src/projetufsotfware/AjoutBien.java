@@ -11,11 +11,14 @@ import java.awt.event.*;
 
 /**
  *
- * @author Utilisateur
+ * @author Equipe B2B - B
+ * cette classe sert a ajouter un bien
  */
+
 public class AjoutBien implements ActionListener {
     private Connexion connect;
     private PreparedStatement ps;
+    private JFrame fen;
     
     private JTextField input_categorie;
     private JTextField input_title;
@@ -52,13 +55,13 @@ public class AjoutBien implements ActionListener {
     public AjoutBien (Connexion cc) throws SQLException {
         this.connect = cc;
         try {
-            //Construction fenetre
-            JFrame fen = new JFrame();
+            /** construction fenetre */
+            fen = new JFrame();
             fen.setTitle("Ajouter un bien");
             fen.setSize(450, 550);
             fen.setLayout(null);
 
-
+            /** les labels et inputs */
             categorie = new JLabel("Categorie : ");
             categorie.setBounds(10, 20, 150, 20);
             fen.add(categorie);
@@ -145,13 +148,13 @@ public class AjoutBien implements ActionListener {
             input_owner.setBounds(200, 410, 150, 20);
             fen.add(input_owner);
             
-            // Bouton ajouter
+            /** bouton ajouter */
             ajout = new JButton("Ajouter");
             ajout.setBounds(130, 460, 150, 20);
             ajout.addActionListener(this);
             fen.add(ajout);
 
-            // Met en visible
+            /** met en visible */
             fen.setVisible(true);
         }
         catch(Exception e) {
@@ -182,6 +185,9 @@ public class AjoutBien implements ActionListener {
             ps.setString(14, input_owner.getText());
             
             ps.executeUpdate();
+            
+            /** ferme la fenetre apres l'execution de la requete */
+            fen.dispose();
         }
         catch(Exception e) {
             e.printStackTrace();

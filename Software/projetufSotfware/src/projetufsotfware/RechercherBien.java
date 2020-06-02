@@ -12,7 +12,7 @@ import java.util.*;
 
 /**
  *
- * @author Utilisateur
+ * @author Equipe B2B - B
  * cette classe sert a rechercher un bien par son titre et le nom de son propriétaire
  */
 
@@ -40,11 +40,13 @@ public class RechercherBien implements ActionListener {
         this.connect = cc;
         
         try {
+            /** construction fenetre */
             fen = new JFrame();
             fen.setTitle("Rechercher un bien");
             fen.setSize(400, 350);
             fen.setLayout(null);
             
+            /** requete pour recuperer et afficher des donnees */
             String request = "SELECT b.title, c.lastname FROM bien b JOIN client c ON b.owner = c.lastname;";
             ps = connect.getConnect().prepareStatement(request);
             set = ps.executeQuery(request);
@@ -82,12 +84,13 @@ public class RechercherBien implements ActionListener {
             cbLastname.setBounds(200, 140, 150, 20);
             fen.add(cbLastname);
         
+            /** bouton rechercher */
             valider = new JButton("Rechercher");
             valider.addActionListener(this);
             valider.setBounds(110, 210, 150, 20);
             fen.add(valider);
             
-            //Met en visible
+            /** met en visible */
             fen.setVisible(true);
         }
         catch (Exception e) {
@@ -103,6 +106,9 @@ public class RechercherBien implements ActionListener {
             pre = cbLastname.getSelectedItem().toString();
             //System.out.println(nm + " ; " + pre);
             CrudBien cb = new CrudBien(connect, searchB, nm, pre);
+            
+            /** ferme la fenetre actuelle */
+            fen.dispose();
         }
         catch (Exception e) {
             e.printStackTrace();

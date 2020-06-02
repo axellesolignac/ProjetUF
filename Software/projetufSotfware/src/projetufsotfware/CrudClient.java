@@ -11,7 +11,8 @@ import java.awt.event.*;
 
 /**
  *
- * @author Utilisateur
+ * @author Equipe B2B - B
+ * cette classe sert a modifier et supprimer un client
  */
 
 public class CrudClient implements ActionListener {
@@ -20,6 +21,7 @@ public class CrudClient implements ActionListener {
     private PreparedStatement ps;
     private ResultSet set;
     private int id;
+    private JFrame fen;
   
     /* tous les textes et cases de saisie et les boutons */
     private JTextField input_username;
@@ -59,12 +61,13 @@ public class CrudClient implements ActionListener {
             set = ps.executeQuery(query);
             set.next();
             
-            /* Construction fenetre */
-            JFrame fen = new JFrame();
+            /** construction fenetre */
+            fen = new JFrame();
             fen.setTitle("Informations du client");
             fen.setSize(400, 450);
             fen.setLayout(null);
             
+            /** les labels et inputs */
             username = new JLabel("Identifiant : ");
             username.setBounds(10, 20, 150, 20);
             fen.add(username);
@@ -134,7 +137,7 @@ public class CrudClient implements ActionListener {
             input_nationality.setBounds(220, 320, 150, 20);
             fen.add(input_nationality);
             
-            // Bouton modifier et supprimer
+            /** bouton modifier et supprimer */
             edit = new JButton("Modifier");
             edit.setBounds(50, 350, 100, 30);
             edit.addActionListener(this);
@@ -145,7 +148,7 @@ public class CrudClient implements ActionListener {
             supp.addActionListener(this);
             fen.add(supp);
 
-            // Met en visible
+            /** met en visible */
             fen.setVisible(true);
         }
         catch (Exception e) {
@@ -157,6 +160,7 @@ public class CrudClient implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent event) {
         try {
+            /** depend de l'origine du clic */
             if ( event.getSource() == edit ) {
                 id = set.getInt("id");
                 String us = input_username.getText();
@@ -186,12 +190,15 @@ public class CrudClient implements ActionListener {
         }
     }
     
+    /** fonction pour modifier un client */
     public void Modifier (int id, String us, String psw, String ln, String fn, String sx, Date bd, int tl, String em, String ad, String cy, String na) throws SQLException {
         try {
             String requete = "UPDATE client SET username='"+us+"', password='"+psw+"', lastname='"+ln+"', firstname='"+fn+"', gender='"+sx+"', birthdate='"+bd+"', phone="+tl+", email='"+em+"', address='"+ad+"', city='"+cy+"', nationality='"+na+"' WHERE id="+id+";";
             ps = connect.getConnect().prepareStatement(requete);
             
             ps.executeUpdate();
+            /** ferme la fenetre apres l'execution de la requete */
+            fen.dispose();
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -199,12 +206,15 @@ public class CrudClient implements ActionListener {
         }
     }
     
+    /** fonction pour supprimer un client */
     public void Supprimer (String ln, int id) throws SQLException {
         try {
             String requete = "DELETE FROM client WHERE lastname='"+ln+"' AND id="+id+";";
             ps = connect.getConnect().prepareStatement(requete);
             
             ps.executeUpdate();
+            /** ferme la fenetre apres l'execution de la requete */
+            fen.dispose();
         }
         catch (Exception e) {
             e.printStackTrace();

@@ -12,7 +12,7 @@ import java.util.*;
 
 /**
  *
- * @author Utilisateur
+ * @author Equipe B2B - B
  * cette classe sert a rechercher un client a partir de son nom et de son prenom
  */
 
@@ -42,11 +42,13 @@ public class RechercherClient implements ActionListener {
         this.connect = cc;
         
         try {
+            /** construction fenetre */
             fen = new JFrame();
             fen.setTitle("Rechercher un client");
             fen.setSize(400, 350);
             fen.setLayout(null);
             
+            /** requete pour recuperer et afficher des donnees */
             String request = "SELECT lastname, firstname FROM client;";
             ps = connect.getConnect().prepareStatement(request);
             set = ps.executeQuery(request);
@@ -83,6 +85,7 @@ public class RechercherClient implements ActionListener {
             cbFirstname.setBounds(140, 140, 150, 20);
             fen.add(cbFirstname);
         
+            /** bouton rechercher */
             valider = new JButton("Rechercher");
             valider.addActionListener(this);
             valider.setBounds(100, 210, 150, 20);
@@ -105,6 +108,9 @@ public class RechercherClient implements ActionListener {
             pre = cbFirstname.getSelectedItem().toString();
             //System.out.println(nm + " ; " + pre);
             CrudClient ic = new CrudClient(connect, searchC, nm, pre);
+            
+            /** ferme la fenetre actuelle */
+            fen.dispose();
         }
         catch (Exception e) {
             e.printStackTrace();

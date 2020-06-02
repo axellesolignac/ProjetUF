@@ -11,12 +11,14 @@ import java.sql.*;
 
 /**
  *
- * @author Utilisateur
+ * @author Equipe B2B - B
+ * cette classe sert a ajouter un client
  */
 
 public class AjoutClient implements ActionListener {
     private Connexion connect;
     private PreparedStatement ps;
+    private JFrame fen;
     
     private JTextField input_username;
     private JTextField input_password;
@@ -46,14 +48,14 @@ public class AjoutClient implements ActionListener {
     public AjoutClient(Connexion cc) throws SQLException {
         this.connect = cc;
         try {
-            // Construction fenetre
-            JFrame fen = new JFrame();
+            /** construction fenetre */
+            fen = new JFrame();
             fen.setTitle("Ajout d'un client");
             fen.setSize(400, 450);
             //fen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             fen.setLayout(null);
 
-            // Construction des label
+            /** construction des labels */
             username = new JLabel("Identifiant : ");
             username.setBounds(10, 20, 150, 20);
             fen.add(username);
@@ -88,7 +90,7 @@ public class AjoutClient implements ActionListener {
             nationality.setBounds(10, 320, 150, 20);
             fen.add(nationality);
 
-            // Construction de textfield
+            /** construction de textfield */
             input_username = new JTextField();
             input_username.setBounds(220, 20, 150, 20);
             fen.add(input_username);
@@ -123,13 +125,13 @@ public class AjoutClient implements ActionListener {
             input_nationality.setBounds(220, 320, 150, 20);
             fen.add(input_nationality);
 
-            /** Bouton ajouter */
+            /** bouton ajouter */
             JButton ajout = new JButton("Ajouter");
             ajout.addActionListener(this);
             ajout.setBounds(130, 350, 78, 20);
             fen.add(ajout);
 
-            /** Met en visible */
+            /** met en visible */
             fen.setVisible(true);
         }
         catch (Exception e) {
@@ -158,6 +160,8 @@ public class AjoutClient implements ActionListener {
             ps.setString(11, input_nationality.getText());
             
             ps.executeUpdate();
+            /** ferme la fenetre apres l'execution de la requete */
+            fen.dispose();
         }
         catch (Exception e) {
             e.printStackTrace();

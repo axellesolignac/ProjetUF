@@ -11,7 +11,7 @@ import java.awt.event.*;
 
 /**
  *
- * @author Utilisateur
+ * @author Equipe B2B - B
  * cette classe sert à modifier et supprimer les agents immobilier et à les lier à une agence
  */
 
@@ -21,8 +21,8 @@ public class CrudEmploye implements ActionListener {
     private PreparedStatement ps;
     private ResultSet set;
     private int id;
+    private JFrame fen;
   
-    /* tous les textes et cases de saisie et les boutons */
     private JTextField input_lastname;
     private JTextField input_firstname;
     private JTextField input_status;
@@ -52,13 +52,13 @@ public class CrudEmploye implements ActionListener {
             set = ps.executeQuery(query);
             set.next();
             
-            /* Construction fenetre */
-            JFrame fen = new JFrame();
+            /* construction fenetre */
+            fen = new JFrame();
             fen.setTitle("Informations de l'employe");
-            fen.setSize(400, 500);
+            fen.setSize(420, 330);
             fen.setLayout(null);
 
-            
+            /** les labels et inputs */
             lastname = new JLabel();
             lastname.setText("Nom : ");
             lastname.setBounds(10, 20, 150, 20);
@@ -76,10 +76,10 @@ public class CrudEmploye implements ActionListener {
             email.setBounds(10, 140, 150, 20);
             fen.add(email);
             agence = new JLabel("Agence : ");
-            agence.setBounds(10, 170, 80, 20); 
+            agence.setBounds(10, 170, 150, 20); 
             fen.add(agence);
             password = new JLabel("Mot de passe : ");
-            password.setBounds(10, 200, 80, 20);
+            password.setBounds(10, 200, 150, 20);
             fen.add(password);
             
             input_lastname = new JTextField(set.getString("lastname"));
@@ -104,18 +104,18 @@ public class CrudEmploye implements ActionListener {
             input_password.setBounds(200, 200, 150, 20);
             fen.add(input_password);
             
-            // Bouton Modifier
+            /** bouton modifier et supprimer */
             edit = new JButton("Modifier");
-            edit.setBounds(50, 200, 100, 20);
+            edit.setBounds(50, 240, 100, 20);
             edit.addActionListener(this);
             fen.add(edit);
             
             supp = new JButton("Supprimer");
-            supp.setBounds(190, 200, 100, 20);
+            supp.setBounds(190, 240, 100, 20);
             supp.addActionListener(this);
             fen.add(supp);
 
-            // Met en visible
+            /** met en visible */
             fen.setVisible(true);
         }
         catch (Exception e) {
@@ -127,50 +127,63 @@ public class CrudEmploye implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent event) {
         try {
+            /** si l'origine du clic viens de Modifier, alors ça entrainera la fonction modifier avec les informations sinon ça fera supprimer */
+            
             if ( event.getSource() == edit ) {
-                int id = set.getInt("id_agent");
+                id = set.getInt("id_agent");
                 String ln = input_lastname.getText();
                 String fn = input_firstname.getText();
                 String st = input_status.getText();
                 String sx = input_gender.getText();
                 String em = input_email.getText();
-                String ag = (input_agence.getText());
+                String ag = input_agence.getText();
                 String psw = input_password.getText();
                 
                 ModifierE (id, ln, fn, st, sx, em, ag, psw);
             }
-            if ( event.getSource() == supp ) {
+            else if ( event.getSource() == supp ) {
                 String ln = input_lastname.getText();
                 String fn = input_firstname.getText();
                 
                 SupprimerE (ln, fn);
+            }
+            else {
+                System.out.println("Erreur ");
             }
         }
         catch (Exception e) {
             e.printStackTrace();
             System.out.println("Erreur des boutons : " + e.getMessage());
         }
-    }    
+    }
     
+    /** fonction pour modifier les elements de la table selon les informations rentrees */
     public void ModifierE (int id, String ln, String fn, String st, String sx, String em, String ag, String psw) throws SQLException {
         try {
             String requete = "UPDATE employe SET password='"+psw+"', lastname='"+ln+"', firstname='"+fn+"', status='"+st+"', gender='"+sx+"', email='"+em+"', agence='"+ag+"' WHERE id_agent="+id+";";
             ps = connect.getConnect().prepareStatement(requete);
             
             ps.executeUpdate();
+            
+            /** ferme la fenetre actuelle apres de la realisation de la requete */
+            fen.dispose();
         }
         catch (Exception e) {
             e.printStackTrace();
             System.out.println("Erreur de la modification : " + e.getMessage());
         }
-    }    
-
+    }
+    
+    /** fonction pour supprimer les elements de la table contenant les informations recuperees */
     public void SupprimerE (String ln, String fn) throws SQLException {
         try {
             String requete = "DELETE FROM employe WHERE lastname='"+ln+"' AND firstname ='"+fn+"';";
             ps = connect.getConnect().prepareStatement(requete);
             
             ps.executeUpdate();
+            
+            /** ferme la fenetre actuelle apres de la realisation de la requete */
+            fen.dispose();
         }
         catch (Exception e) {
             e.printStackTrace();

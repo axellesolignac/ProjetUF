@@ -11,7 +11,7 @@ import java.awt.event.*;
 
 /**
  *
- * @author Utilisateur
+ * @author Equipe B2B - B
  * cette classe sert a modifier les informations concernant les agences
  */
 
@@ -42,13 +42,13 @@ public class CrudAgence implements ActionListener {
             set = ps.executeQuery(query);
             set.next();
             
-            /* Construction fenetre */
+            /** construction fenetre */
             fen = new JFrame();
-            fen.setTitle("Informations de l'employe");
-            fen.setSize(310, 500);
+            fen.setTitle("Informations de l'agence");
+            fen.setSize(400, 200);
             fen.setLayout(null);
 
-            
+            /** les labels et textfield pour rentrer les informations */
             numero = new JLabel("Numero d'agence (AG/VILLE/01) : ");
             numero.setBounds(10, 20, 150, 20);
             fen.add(numero);
@@ -58,41 +58,41 @@ public class CrudAgence implements ActionListener {
             nbAgent = new JLabel("Nombre d'agent : ");
             nbAgent.setBounds(10, 80, 200, 20);
             fen.add(nbAgent);
-
             
             input_numero = new JTextField(set.getString("number"));
-            input_numero.setBounds(230, 20, 150, 20);
+            input_numero.setBounds(200, 20, 150, 20);
             fen.add(input_numero);
             input_ville = new JTextField(set.getString("city"));
-            input_ville.setBounds(230, 50, 150, 20);
+            input_ville.setBounds(200, 50, 150, 20);
             fen.add(input_ville);
             input_nbAgent = new JTextField(set.getString("nbAgent"));
-            input_nbAgent.setBounds(230, 80, 150, 20);
+            input_nbAgent.setBounds(200, 80, 150, 20);
             fen.add(input_nbAgent);
-
-            // Bouton Modifier
+            
+            /** bouton modifier et supprimer */
             edit = new JButton("Modifier");
-            edit.setBounds(50, 260, 100, 20);
+            edit.setBounds(50, 120, 100, 20);
             edit.addActionListener(this);
             fen.add(edit);
             
             supp = new JButton("Supprimer");
-            supp.setBounds(190, 260, 100, 20);
+            supp.setBounds(190, 120, 100, 20);
             supp.addActionListener(this);
             fen.add(supp);
 
-            // Met en visible
+            /** met en visible */
             fen.setVisible(true);
         }
         catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Erreur du menu crud : " + e.getMessage());
+            System.out.println("Erreur du menu crud agence : " + e.getMessage());
         }
     }
     
     @Override
     public void actionPerformed(ActionEvent event) {
         try {
+            /** si le clic provient du bouton modifier alors ça provoquera la premiere fonction sinon c'est la deuxieme */
             if ( event.getSource() == edit ) {
                 String nb = input_numero.getText();
                 String cy = input_ville.getText();
@@ -113,29 +113,35 @@ public class CrudAgence implements ActionListener {
         }
     }    
     
+    /** fonction pour modifier les informations rentrees */
     public void ModifierA (String nb, String cy, int nba) throws SQLException {
         try {
-            String requete = "UPDATE agence SET city='"+cy+"', nbAgent='"+nba+"' WHERE number="+nb+";";
+            String requete = "UPDATE agence SET city='"+cy+"', nbAgent="+nba+" WHERE number="+nb+";";
             ps = connect.getConnect().prepareStatement(requete);
             
             ps.executeUpdate();
+            /** ferme la fenetre actuelle apres la realisation de la requete */
+            fen.dispose();
         }
         catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Erreur de la modification : " + e.getMessage());
+            System.out.println("Erreur de la modification agence : " + e.getMessage());
         }
     }    
-
+    
+    /** fonction pour supprimer les informations que l'on ai en train de regarder */
     public void SupprimerA (String nb, String cy) throws SQLException {
         try {
             String requete = "DELETE FROM agence WHERE number='"+nb+"' AND city ='"+cy+"';";
             ps = connect.getConnect().prepareStatement(requete);
             
             ps.executeUpdate();
+            /** ferme la fenetre actuelle apres la realisation de la requete */
+            fen.dispose();
         }
         catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Erreur de la suppression : " + e.getMessage());
+            System.out.println("Erreur de la suppression agence : " + e.getMessage());
         }
     }   
 }

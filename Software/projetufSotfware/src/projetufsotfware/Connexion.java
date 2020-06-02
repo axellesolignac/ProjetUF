@@ -11,16 +11,16 @@ import java.awt.event.*;
 
 /**
  *
- * @author Utilisateur
+ * @author Equipe B2B - B
+ * cette classe sert a se connecter a la bdd 
  */
 
 public class Connexion {
-    private  PreparedStatement ps;
     private  Connection connect;
     
     public Connexion() throws SQLException {
         
-        //test la connexion à la base de données 
+        /** test la connexion à la base de données */
         
         try {
             String url = "jdbc:mysql://localhost:3306/projetuf";
@@ -28,9 +28,10 @@ public class Connexion {
             System.out.println("Connexion a la base de donnée : succès ");
             
         } catch(Exception ex) {
+            ex.printStackTrace();
             System.out.println("Echec de connexion");
         }
-    }    
+    }
     
     public Connection getConnect() {
         return this.connect;

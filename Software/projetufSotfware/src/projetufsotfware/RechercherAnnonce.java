@@ -11,7 +11,7 @@ import java.awt.event.*;
 
 /**
  *
- * @author Utilisateur
+ * @author Equipe B2B - B
  * cette classe sert a rechercher une annonce afin de pouvoir changer le statut de ladite annonce
  */
 
@@ -34,6 +34,7 @@ public class RechercherAnnonce implements ActionListener {
         this.connect = cc;
         
         try {
+            /** construction fenetre */
             fen = new JFrame();
             fen.setTitle("Rechercher un bien");
             fen.setSize(400, 350);
@@ -58,6 +59,7 @@ public class RechercherAnnonce implements ActionListener {
             input_lastname.setBounds(140, 140, 150, 20);
             fen.add(input_lastname);
         
+            /** bouton rechercher */
             valider = new JButton("Rechercher");
             valider.addActionListener(this);
             valider.setBounds(140, 210, 150, 20);
@@ -68,7 +70,7 @@ public class RechercherAnnonce implements ActionListener {
         }
         catch (Exception e) {
             e.printStackTrace();
-            //System.out.println("Erreur recherche bien : " + e.getMessage());
+            System.out.println("Erreur recherche bien : " + e.getMessage());
         }
     }
     
@@ -79,10 +81,13 @@ public class RechercherAnnonce implements ActionListener {
             pre = input_lastname.getText();
             //System.out.println(nm + " ; " + pre);
             CrudBien cb = new CrudBien(connect, searchB, nm, pre);
+            
+            /** ferme la fenetre actuelle */
+            fen.dispose();
         }
         catch (Exception e) {
             e.printStackTrace();
-            //System.out.println("Erreur pour le bouton rechercher : " + e.getMessage());
+            System.out.println("Erreur pour le bouton rechercher : " + e.getMessage());
         }
     }
 }

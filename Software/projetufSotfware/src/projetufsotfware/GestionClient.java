@@ -11,7 +11,7 @@ import java.awt.event.*;
 
 /**
  *
- * @author Utilisateur
+ * @author Equipe B2B - B
  * cette classe sert a afficher le menu de gestion des clients
  */
 
@@ -26,26 +26,25 @@ public class GestionClient implements ActionListener {
         this.connect = cc;
         
         try {
-            // Construction de la fenêtre 
+            /** construction de la fenêtre */
             fen = new JFrame();
             fen.setTitle("Gestion des clients");
             fen.setSize(370, 200);
-            /*fen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);*/
             fen.setLayout(null);
 
-            // Bouton pour ajouter un client
+            /** bouton pour ajouter un client */
             add = new JButton("Ajouter un client");
             add.setBounds(50, 20, 220, 40);
             add.addActionListener(this);
             fen.add(add);
 
-            //Bouton pour afficher les informations d'un client
+            /** bouton pour afficher les informations d'un client */
             info = new JButton("Afficher informations client");
             info.setBounds(50, 70, 220, 40);
             info.addActionListener(this);
             fen.add(info);
 
-            // Met en visible
+            /** met en visible */
             fen.setVisible(true);
         }
         catch (Exception e) {
@@ -57,11 +56,15 @@ public class GestionClient implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent event) {
         try {
+            /** depend de l'origine du clic */
             if ( event.getSource() == add ) {
                 AjoutClient ajc = new AjoutClient (connect);
             }
-            if ( event.getSource() == info ) {
+            else if ( event.getSource() == info ) {
                 RechercherClient rc = new RechercherClient (connect);
+            }
+            else {
+                System.out.println("Erreur dans les boutons de gestion de clients");
             }
         }
         catch (Exception e) {

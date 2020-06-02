@@ -11,7 +11,7 @@ import java.awt.event.*;
 
 /**
  *
- * @author Utilisateur
+ * @author Equipe B2B - B
  * cette classe sert a modifier ou supprimer un bien dans sa totatite
  */
 
@@ -66,12 +66,13 @@ public class CrudBien implements ActionListener {
             set = ps.executeQuery(query);
             set.next();
             
-            /* Construction fenetre */
+            /** Construction fenetre */
             fen = new JFrame();
             fen.setTitle("Informations du bien");
             fen.setSize(400, 600);
             fen.setLayout(null);
             
+            /** les labels et inputs */
             categorie = new JLabel("Categorie : ");
             categorie.setBounds(10, 20, 150, 20);
             fen.add(categorie);
@@ -164,7 +165,7 @@ public class CrudBien implements ActionListener {
             input_status.setBounds(200, 440, 150, 20);
             fen.add(input_status);
             
-            // Bouton modifier et supprimer
+            /** bouton modifier et supprimer */
             edit = new JButton("Modifier");
             edit.setBounds(50, 490, 100, 30);
             edit.addActionListener(this);
@@ -174,7 +175,7 @@ public class CrudBien implements ActionListener {
             supp.addActionListener(this);
             fen.add(supp);
 
-            // Met en visible
+            /** met en visible */
             fen.setVisible(true);
         }
         catch (Exception e) {
@@ -186,6 +187,7 @@ public class CrudBien implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent event) {
         try {
+            /** le choix depend de la source du clic */
             if ( event.getSource() == edit ) {
                 int id = set.getInt("id");
                 String ca = input_categorie.getText();
@@ -218,12 +220,14 @@ public class CrudBien implements ActionListener {
         }
     }
     
+    /** fonction pour modifier avec les donnees rentrees */
     public void Modifier (int id, String ca, String ti, int px, String ad, String cy, String ds, int sup, int sut, int de, String ph, int nbP, int nbE, int nbC, String ow) throws SQLException {
         try {
             String requete = "UPDATE bien SET categorie='"+ca+"', title='"+ti+"', prix="+px+", address='"+ad+"', city='"+cy+"', description='"+ds+"', superficie="+sup+", surfaceTerrain="+sut+", dependance="+de+", photo='"+ph+"', nbPiece="+nbP+", nbEtage="+nbE+", nbChambre="+nbC+", owner='"+ow+"' WHERE id="+id+";";
             ps = connect.getConnect().prepareStatement(requete);
             
             ps.executeUpdate();
+            /** ferme la fenetre apres l'execution de la requete */
             fen.dispose();
         }
         catch (Exception e) {
@@ -232,12 +236,14 @@ public class CrudBien implements ActionListener {
         }
     }
     
+    /** fonction pour supprimer la ligne dans la bdd  */
     public void Supprimer (int id, String ti) throws SQLException {
         try {
             String requete = "DELETE FROM bien WHERE id="+id+" AND title='"+ti+"';";
             ps = connect.getConnect().prepareStatement(requete);
             
             ps.executeUpdate();
+            /** ferme la fenetre apres l'execution de la requete */
             fen.dispose();
         }
         catch (Exception e) {

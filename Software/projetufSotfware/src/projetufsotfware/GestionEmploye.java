@@ -11,7 +11,7 @@ import java.awt.event.*;
 
 /**
  *
- * @author Utilisateur
+ * @author Equipe B2B - B
  * cette classe sert a afficher le menu de gestion des employes
  */
 
@@ -59,8 +59,11 @@ public class GestionEmploye implements ActionListener {
             if ( event.getSource() == add ) {
                 AjoutEmploye ae = new AjoutEmploye(connect);
             }
-            if ( event.getSource() == info ) {
+            else if ( event.getSource() == info ) {
                 RechercherEmploye re = new RechercherEmploye(connect);
+            }
+            else {
+                System.out.println("Erreur dans les boutons de gestion des employes");
             }
         }
         catch (Exception e) {

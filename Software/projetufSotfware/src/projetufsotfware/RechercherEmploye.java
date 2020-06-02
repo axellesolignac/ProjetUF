@@ -12,7 +12,7 @@ import java.util.*;
 
 /**
  *
- * @author Utilisateur
+ * @author Equipe B2B - B
  * cette classe sert a rechercher un client a partir de son nom et de son prenom
  */
 
@@ -29,7 +29,6 @@ public class RechercherEmploye implements ActionListener {
     
     private String nm;
     private String pre;
-    
     private JButton valider;
     
     ArrayList<String> arrayLastname = new ArrayList<>();
@@ -42,11 +41,13 @@ public class RechercherEmploye implements ActionListener {
         this.connect = cc;
         
         try {
+            /** construction fenetre */
             fen = new JFrame();
             fen.setTitle("Rechercher un employe");
             fen.setSize(400, 350);
             fen.setLayout(null);
             
+            /** requete afin de recuperer les noms, prenoms des employes afin de pouvoir les stocker dans des tableaux et pouvoir les afficher */
             String request = "SELECT lastname, firstname FROM employe;";
             ps = connect.getConnect().prepareStatement(request);
             set = ps.executeQuery(request);
@@ -68,7 +69,7 @@ public class RechercherEmploye implements ActionListener {
             labelinfo.setBounds(70, 20, 250, 20);
             fen.add(labelinfo);
             
-            /** la zone de saisie */
+            /** les zones de saisie */
             lastname = new JLabel("Nom : ");
             lastname.setBounds(50, 100, 50, 20);
             fen.add(lastname);
@@ -83,6 +84,7 @@ public class RechercherEmploye implements ActionListener {
             cbFirstname.setBounds(140, 140, 150, 20);
             fen.add(cbFirstname);
         
+            /** bouton rechercher */
             valider = new JButton("Rechercher");
             valider.addActionListener(this);
             valider.setBounds(100, 210, 150, 20);
@@ -93,7 +95,7 @@ public class RechercherEmploye implements ActionListener {
         }
         catch(Exception e) {
             e.printStackTrace();
-            System.out.println("Echec de connexion pour la recherche : " + e.getMessage());
+            System.out.println("Echec de connexion pour la recherche employe : " + e.getMessage());
         }
 
     }
@@ -104,11 +106,15 @@ public class RechercherEmploye implements ActionListener {
             nm = cbLastname.getSelectedItem().toString();
             pre = cbFirstname.getSelectedItem().toString();
             //System.out.println(nm + " ; " + pre);
+            
             CrudEmploye ic = new CrudEmploye(connect, searchE, nm, pre);
+            
+            /** ferme la fenetre actuelle */
+            fen.dispose();
         }
         catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Erreur pour le bouton action : " + e.getMessage());
+            System.out.println("Erreur pour le bouton rechercheremploye : " + e.getMessage());
         }
     }
 }  

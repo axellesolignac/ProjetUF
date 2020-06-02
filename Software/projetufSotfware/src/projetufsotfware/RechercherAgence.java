@@ -11,7 +11,7 @@ import java.awt.event.*;
 
 /**
  *
- * @author Utilisateur
+ * @author Equipe B2B - B
  * cette classe sert a rechercher les agences selon leur numéro et leur ville
  */
 
@@ -34,6 +34,7 @@ public class RechercherAgence implements ActionListener {
         this.connect = cc;
         
         try {
+            /** construction fenetre */
             fen = new JFrame();
             fen.setTitle("Rechercher une agence");
             fen.setSize(430, 300);
@@ -58,12 +59,13 @@ public class RechercherAgence implements ActionListener {
             input_ville.setBounds(200, 140, 200, 20);
             fen.add(input_ville);
         
+            /** bouton rechercher */
             valider = new JButton("Rechercher");
             valider.addActionListener(this);
             valider.setBounds(110, 170, 150, 20);
             fen.add(valider);
             
-            //Met en visible
+            /** met en visible */
             fen.setVisible(true);
         }
         catch (Exception e) {
@@ -79,6 +81,9 @@ public class RechercherAgence implements ActionListener {
             pre = input_ville.getText();
             //System.out.println(nm + " ; " + pre);
             CrudAgence cra = new CrudAgence(connect, searchA, nm, pre);
+            
+            /** ferme la fenetre actuelle  */
+            fen.dispose();
         }
         catch (Exception e) {
             e.printStackTrace();

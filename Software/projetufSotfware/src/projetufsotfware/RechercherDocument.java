@@ -12,7 +12,7 @@ import java.util.*;
 
 /**
  *
- * @author Utilisateur
+ * @author Equipe B2B - B
  * cette classe sert a rechercher des documents
  */
 
@@ -40,12 +40,13 @@ public class RechercherDocument implements ActionListener {
         this.connect = cc;
         
         try {
+            /** construction fenetre */
             fen = new JFrame();
             fen.setTitle("Rechercher un document");
             fen.setSize(400, 350);
             fen.setLayout(null);
             
-            
+            /** requete pour recuperer et afficher les donnees necessaires */
             String request = "SELECT d.type, c.lastname, c.firstname FROM document d JOIN client c ON d.id_client = c.id;";
             ps = connect.getConnect().prepareStatement(request);
             set = ps.executeQuery(request);
@@ -80,6 +81,7 @@ public class RechercherDocument implements ActionListener {
             cbLastname.setBounds(200, 140, 150, 20);
             fen.add(cbLastname);
         
+            /** bouton rechercher */
             valider = new JButton("Rechercher");
             valider.addActionListener(this);
             valider.setBounds(140, 210, 150, 20);
@@ -101,6 +103,9 @@ public class RechercherDocument implements ActionListener {
             pre = cbLastname.getSelectedItem().toString();
             //System.out.println(nm + " ; " + pre);
             CrudDocument cd = new CrudDocument(connect, searchD, nm, pre);
+            
+            /** ferme la fenetre actuelle */
+            fen.dispose();
         }
         catch (Exception e) {
             e.printStackTrace();

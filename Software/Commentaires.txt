@@ -1,0 +1,33 @@
+# Projet UF - Stephi Place Software
+
+Ce logiciel consiste à gérer les clients, les documents et les biens pour les agents immobiliers et pour gérer les comptes agents, les agences et les affectations pour les administrateurs.
+
+# Installation 
+
+Pour pouvoir parfaitement exécuter le programme, il faut tout d'abord ajouter un fichier '.jar' aux librairies du projet (si le fichier n'y est pas déjà) afin de pouvoir se connecter à la base de données.
+Cette dernière est fournie en fichier '.sql' avec ce fichier. Pour pouvoir l'installer et l'utiliser parfaitement, il faut tout d'abord installer WampServer64. Puis il faut réaliser les commandes suivantes : 
+	- ouvrir WampServer64 (double clic sur le raccourci créé sur le bureau) et attendre que le voyant soit au vert
+	- faire un clic droit sur l'icone de Wamp et ouvrir 'phpMyAdmin'
+	- Normalement, l'identifiant est 'root' et il n'y a rien en mot de passe. Faites 'executer' (ou 'se connecter')
+	- Créer une nouvelle base de donnée et donner lui le nom 'projetuf'
+	- Cliquer sur 'importer' dans les fonctionnalités en haut, sans créer de table dans cette base
+	- Cliquer sur 'Charger un fichier' et aller chercher le fichier '.sql' qui est fourni dans le dossier zip
+	- Cliquer sur 'executer'
+
+
+# Réussite
+
+Les fichiers et requêtes de crud (create, read, update, delete) ont été les premiers a être réalisés car nous avions déjà les bases les concernant. 
+
+
+# Echec
+
+Les images ne sont pas affichées suite à des problèmes de connaissances de notre part. 
+
+
+# Contribution 
+
+Ce logiciel a été réalisé par LIEUTAUD Céline et SOLIGNAC Axelle, de la B2B Informatique.
+
+
+

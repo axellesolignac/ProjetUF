@@ -12,7 +12,8 @@ import java.util.*;
 
 /**
  *
- * @author Utilisateur
+ * @author Equipe B2B - B
+ * cette classe sert a ajouter des documents
  */
 
 public class AjoutDocument implements ActionListener {
@@ -40,12 +41,13 @@ public class AjoutDocument implements ActionListener {
         this.connect = cc;
         
         try {
-            //Construction fenetre
+            /** construction fenetre */
             fen = new JFrame();
             fen.setTitle("Ajouter un document");
             fen.setSize(380, 300);
             fen.setLayout(null);
 
+            /** requete pour recuperer des donnees et les mettre dans un tableau */
             String request = "SELECT lastname FROM client;";
             ps = connect.getConnect().prepareStatement(request);
             set = ps.executeQuery(request);
@@ -59,7 +61,7 @@ public class AjoutDocument implements ActionListener {
 
             //System.out.println("liste des noms : " + arrayLastname);
 
-            // Construction des label
+            /** construction des labels et inputs */
             title = new JLabel("Titre : ");
             title.setBounds(10, 20, 150, 20);
             fen.add(title);
@@ -86,13 +88,13 @@ public class AjoutDocument implements ActionListener {
             cbLastname.setBounds(180, 110, 170, 20);
             fen.add(cbLastname);
 
-            // Bouton ajouter
+            /** bouton ajouter */
             ajout = new JButton("Ajouter");
             ajout.setBounds(120, 150, 150, 20);
             ajout.addActionListener(this);
             fen.add(ajout);
 
-            // Met en visible
+            /** met en visible */
             fen.setVisible(true);
         }
         catch (Exception e) {
@@ -124,12 +126,14 @@ public class AjoutDocument implements ActionListener {
         }
     }
     
+    /** fonction pour ajouter un client */
     public void Ajouter (String tit, String ty, String co, int id) throws SQLException {
         try  {
             String requete = "INSERT INTO document (title, type, contenu, id_client) VALUES ('"+tit+"', '"+ty+"', '"+co+"', "+id+");";
             ps = connect.getConnect().prepareStatement(requete);
             
             ps.executeUpdate();
+            /** ferme la fenetre apres l'execution de la requete */
             fen.dispose();
         }
         catch (Exception e) {

@@ -11,7 +11,7 @@ import java.sql.*;
 
 /**
  *
- * @author Utilisateur
+ * @author Equipe B2B - B
  * cette classe sert a gérer les informations lies au compte de l'agent qui est connecte
  */
 
@@ -59,7 +59,7 @@ public class MonCompte implements ActionListener {
             fen.setSize(420, 420);
             fen.setLayout(null);
 
-            /* requete sql pour ressortir les informations */
+            /** requete sql pour ressortir les informations */
             String requete = "SELECT * FROM employe WHERE id_agent="+id+";";
             ps = connect.getConnect().prepareStatement(requete);
             result = ps.executeQuery(requete);
@@ -70,6 +70,7 @@ public class MonCompte implements ActionListener {
             rst = pst.executeQuery(request);
             rst.next();
             
+            /** les labels et inputs */
             lastname = new JLabel("Nom : ");
             lastname.setBounds(10, 20, 150, 20);
             fen.add(lastname);
@@ -133,13 +134,13 @@ public class MonCompte implements ActionListener {
             input_password.setBounds(200, 290, 150, 20);
             fen.add(input_password);
             
-            // Bouton Modifier
+            /** bouton modifier */
             edit = new JButton("Modifier");
             edit.setBounds(130, 330, 100, 20);
             edit.addActionListener(this);
             fen.add(edit);
             
-            //Met en visible la page
+            /** met en visible la page */
             fen.setVisible(true);               
         }
         catch(Exception ex) {
@@ -150,7 +151,7 @@ public class MonCompte implements ActionListener {
     
     @Override
     public void actionPerformed(ActionEvent event) {
-        try {        
+        try {
             id_agent = result.getInt("id_agent");
             String ln = input_lastname.getText();
             String fn = input_firstname.getText();
@@ -166,6 +167,8 @@ public class MonCompte implements ActionListener {
             String requete = "UPDATE employe SET password='"+psw+"', lastname='"+ln+"', firstname='"+fn+"', status="+st+", gender='"+sx+"', email='"+em+"', agence='"+ag+"', nbVendeur="+nbv+", nbBienVente="+nbvt+", nbBienVendu="+nbvd+" WHERE id_agent="+id_agent+";";
             ps = connect.getConnect().prepareStatement(requete);
             ps.executeUpdate();
+            
+            /** ferme la fenetre actuelle lorsque la requete est realisee */
             fen.dispose();
         }
         catch (Exception e) {

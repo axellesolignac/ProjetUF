@@ -11,7 +11,7 @@ import java.awt.event.*;
 
 /**
  *
- * @author Utilisateur
+ * @author Equipe B2B - B
  * cette classe sert a afficher le menu de gestion des documents
  */
 
@@ -26,7 +26,7 @@ public class GestionDoc implements ActionListener {
         this.connect = cc;
         
         try {
-            //Construction de la fenêtre 
+            /** construction de la fenêtre */
             fen = new JFrame();
             fen.setTitle("Gestion des documents");
             fen.setSize(380, 200);
@@ -34,18 +34,19 @@ public class GestionDoc implements ActionListener {
             fen.setLayout(null);
             
             
-            // Bouton pour ajouter un document
+            /** bouton pour ajouter un document */
             add = new JButton("Ajouter un document");
             add.setBounds(50, 20, 250, 40);
             add.addActionListener(this);
             fen.add(add);
 
-            //Bouton pour afficher les informations de document
+            /** bouton pour afficher les informations de document */
             info = new JButton("Afficher informations documents");
             info.setBounds(50, 70, 250, 40);
             info.addActionListener(this);
             fen.add(info);
 
+            /** met en visible */
             fen.setVisible(true);
         }
         catch (Exception e) {
@@ -57,11 +58,15 @@ public class GestionDoc implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent event) {
         try {
+            /** depend de l'origine du clic */
             if ( event.getSource() == add ) {
                 AjoutDocument ad = new AjoutDocument(connect);
             }
-            if ( event.getSource() == info ) {
+            else if ( event.getSource() == info ) {
                 RechercherDocument re = new RechercherDocument(connect);
+            }
+            else {
+                System.out.println("Erreur dans les boutons de gestion des documents");
             }
         }
         catch (Exception e) {

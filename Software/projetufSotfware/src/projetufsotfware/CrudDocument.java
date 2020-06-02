@@ -11,7 +11,7 @@ import java.awt.event.*;
 
 /**
  *
- * @author Utilisateur
+ * @author Equipe B2B - B
  * cette classe sert a modifier et supprimer les informations concernant des documents recherches
  */
 
@@ -43,12 +43,13 @@ public class CrudDocument implements ActionListener {
             set = ps.executeQuery(query);
             set.next();
             
-            /* Construction fenetre */
+            /** construction fenetre */
             fen = new JFrame();
             fen.setTitle("Informations du document ");
             fen.setSize(420, 200);
             fen.setLayout(null);
             
+            /** les labels et inputs */
             title = new JLabel("Title : ");
             title.setBounds(10, 20, 150, 20);
             fen.add(title);
@@ -70,7 +71,7 @@ public class CrudDocument implements ActionListener {
             input_contenu.setBounds(200, 80, 150, 20);
             fen.add(input_contenu);
 
-            // Bouton Modifier
+            /** bouton modifier et supprimer */
             edit = new JButton("Modifier");
             edit.setBounds(50, 120, 100, 20);
             edit.addActionListener(this);
@@ -81,7 +82,7 @@ public class CrudDocument implements ActionListener {
             supp.addActionListener(this);
             fen.add(supp);
 
-            // Met en visible
+            /** met en visible */
             fen.setVisible(true);
         }
         catch (Exception e) {
@@ -93,6 +94,7 @@ public class CrudDocument implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent event) {
         try {
+            /** depend de l'origine du clic  */
             if ( event.getSource() == edit ) {
                 int id = set.getInt("id");
                 String ti = input_title.getText();
@@ -114,12 +116,14 @@ public class CrudDocument implements ActionListener {
         }
     }
     
+    /** fonction pour modifier un document */
     public void ModifierD (int id, String ti, String ty, String co) throws SQLException {
         try {
             String requete = "UPDATE document SET title='"+ti+"', type='"+ty+"', contenu='"+co+"' WHERE id="+id+";";
             ps = connect.getConnect().prepareStatement(requete);
             
             ps.executeUpdate();
+            /** ferme la fenetre apres l'execution de la requete */
             fen.dispose();
         }
         catch (Exception e) {
@@ -128,12 +132,14 @@ public class CrudDocument implements ActionListener {
         }
     }    
 
+    /** fonction pour supprimer un document */
     public void SupprimerD (String ti, int id) throws SQLException {
         try {
             String requete = "DELETE FROM document WHERE title='"+ti+"' AND id ='"+id+"';";
             ps = connect.getConnect().prepareStatement(requete);
             
             ps.executeUpdate();
+            /** ferme la fenetre apres l'execution de la requete */
             fen.dispose();
         }
         catch (Exception e) {

@@ -11,9 +11,10 @@ import java.awt.event.*;
 
 /**
  *
- * @author Utilisateur
+ * @author Equipe B2B - B
  * cette classe affiche le menu disponible pour les agents immobiliers
  */
+
 public class MenuEmploye implements ActionListener {
     private Connexion connect;
     private JButton client;
@@ -27,38 +28,38 @@ public class MenuEmploye implements ActionListener {
             this.id_agent = id;
             try {
                 
-            // Fenetre pour afficher le menu
+            /** fenetre pour afficher le menu */
             JFrame fen = new JFrame();
             fen.setTitle("Menu employe");
             fen.setSize(470, 200);
             fen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             fen.setLayout(null);
 
-            // Bouton ajouter
+            /** bouton ajouter */
             client = new JButton("Gestion des clients");
             client.setBounds(10, 20, 200, 30);
             client.addActionListener(this);
             fen.add(client);
 
-            //Bouton pour le compte
+            /** bouton pour le compte */
             compte = new JButton("Mon compte");
             compte.setBounds(230, 20, 200, 30);
             compte.addActionListener(this);
             fen.add(compte);
 
-            //Bouton gestion documents
+            /** bouton gestion documents */
             doc = new JButton("Gestion des documents");
             doc.setBounds(10, 70, 200, 30);
             doc.addActionListener(this);
             fen.add(doc);
 
-            //bouton gestion bien
+            /** bouton gestion bien */
             bien = new JButton("Gestion des biens");
             bien.setBounds(230, 70, 200, 30);
             bien.addActionListener(this);
             fen.add(bien);
 
-            // Met en visible 
+            /** met en visible */
             fen.setVisible(true);
             }
             catch (Exception e) {
@@ -70,17 +71,21 @@ public class MenuEmploye implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent event){
     	try {
+            /** depend de l'origine du clic */
             if ( event.getSource() == client ) {
                 GestionClient gc = new GestionClient(connect);
             }
-            if ( event.getSource() == doc ) {
+            else if ( event.getSource() == doc ) {
                 GestionDoc gd = new GestionDoc(connect);
             }
-            if ( event.getSource() == compte ) {
+            else if ( event.getSource() == compte ) {
                 MonCompte rc = new MonCompte(connect, id_agent);
             }
-            if ( event.getSource() == bien ) {
+            else if ( event.getSource() == bien ) {
                 GestionBien gb = new GestionBien(connect);
+            }
+            else {
+                System.out.println("Erreur dans les boutons de menu employe");
             }
     	}
     	catch (Exception e) {

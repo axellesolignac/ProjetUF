@@ -11,7 +11,7 @@ import java.awt.event.*;
 
 /**
  *
- * @author Utilisateur
+ * @author Equipe B2B - B
  * cette classe sert a ajouter un employe, qu'il soit admin ou agent
  */
 
@@ -41,13 +41,13 @@ public class AjoutEmploye implements ActionListener {
     public AjoutEmploye(Connexion cc) throws SQLException {
         this.connect = cc;
         
-        //Construction fenetre
+        /** construction fenetre */
         fen = new JFrame();
         fen.setTitle("Ajouter un employe");
         fen.setSize(370, 350);
         fen.setLayout(null);
 
-        // Construction des label
+        /** construction des labels et inputs */
         lastname = new JLabel("Nom : ");
         lastname.setBounds(10, 20, 50, 20);
         fen.add(lastname);
@@ -93,13 +93,13 @@ public class AjoutEmploye implements ActionListener {
         input_password.setBounds(150, 200, 150, 20);
         fen.add(input_password);
 
-        // Bouton Modifier
+        /** bouton ajouter */
         ajout = new JButton("Ajouter");
         ajout.setBounds(100, 230, 150, 20);
         ajout.addActionListener(this);
         fen.add(ajout);
 
-        // Met en visible
+        /** met en visible */
         fen.setVisible(true);
     }
     
@@ -118,6 +118,7 @@ public class AjoutEmploye implements ActionListener {
             ps.setString(7, input_agence.getText());
 
             ps.executeUpdate();
+            /** ferme la fenetre apres l'execution de la requete */
             fen.dispose();
         }
         catch (Exception e) {

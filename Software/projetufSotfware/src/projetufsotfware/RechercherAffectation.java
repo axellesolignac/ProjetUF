@@ -10,11 +10,12 @@ import java.sql.*;
 import java.awt.event.*;
 import java.util.*;
 
-
 /**
  *
- * @author Utilisateur
+ * @author Equipe B2B - B
+ * cette classe sert a rechercher un nom de proprietaire afin de pouvoir lui affecter un agent
  */
+
 public class RechercherAffectation implements ActionListener {
     private Connexion connect;
     private PreparedStatement ps;
@@ -35,11 +36,13 @@ public class RechercherAffectation implements ActionListener {
         this.connect = cc;
         
         try {
+            /** construction fenetre */
             fen = new JFrame();
             fen.setTitle("Affectation");
             fen.setSize(430, 250);
             fen.setLayout(null);
             
+            /** requete pour recuperer des informations */
             String request = "SELECT c.lastname FROM bien b JOIN client c ON b.owner = c.lastname;";
             ps = connect.getConnect().prepareStatement(request);
             set = ps.executeQuery(request);
@@ -54,6 +57,7 @@ public class RechercherAffectation implements ActionListener {
             
             //System.out.println("liste des noms : " + arrayLastname);
             
+            /** les labels et inputs */
             labelinfo = new JLabel("Rentrez le nom du proprietaire");
             labelinfo.setBounds(70, 20, 250, 20);
             fen.add(labelinfo);
@@ -67,12 +71,13 @@ public class RechercherAffectation implements ActionListener {
             cbLastname.setBounds(200, 70, 150, 20);
             fen.add(cbLastname);
         
+            /** bouton rechercher */
             valider = new JButton("Rechercher");
             valider.addActionListener(this);
             valider.setBounds(120, 140, 150, 20);
             fen.add(valider);
             
-            //Met en visible
+            /** met en visible */
             fen.setVisible(true);
         }
         catch (Exception e) {
@@ -94,6 +99,7 @@ public class RechercherAffectation implements ActionListener {
             String city = set.getString("city");
             
             ChoixAgence ca = new ChoixAgence(connect, id_bien, las_client, city);
+            /** ferme la fenetre actuelle quand l'autre s'ouvre */
             fen.dispose();
         }
         catch (Exception e) {

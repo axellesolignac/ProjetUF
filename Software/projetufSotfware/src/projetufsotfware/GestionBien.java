@@ -11,7 +11,7 @@ import java.awt.event.*;
 
 /**
  *
- * @author Utilisateur
+ * @author Equipe B2B - B
  * cette classe sert a afficher le menu de gestion des bien
  */
 
@@ -25,7 +25,7 @@ public class GestionBien implements ActionListener {
     public GestionBien (Connexion cc) throws SQLException {
         this.connect = cc;
         try {
-            //Construction de la fenêtre 
+            /** construction de la fenêtre */
             fen = new JFrame();
             fen.setTitle("Gestion des biens");
             fen.setSize(380, 200);
@@ -43,7 +43,7 @@ public class GestionBien implements ActionListener {
             info.addActionListener(this);
             fen.add(info);
 
-            //Met en visible
+            /** met en visible */
             fen.setVisible(true);
         }
         catch (Exception e) {
@@ -55,11 +55,15 @@ public class GestionBien implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent event){
     	try {
+            /** depend de l'origine du clic */
             if ( event.getSource() == add ) {
                 AjoutBien ab = new AjoutBien(connect);
             }
-            if ( event.getSource() == info ) {
+            else if ( event.getSource() == info ) {
                 RechercherBien cb = new RechercherBien(connect);
+            }
+            else {
+                System.out.println("Erreur dans les boutons de gestion des biens");
             }
     	}
     	catch (Exception e) {

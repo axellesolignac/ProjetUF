@@ -12,7 +12,7 @@ import java.util.*;
 
 /**
  *
- * @author Utilisateur
+ * @author Equipe B2B - B
  * cette classe servira à modifier le statut d'une annonce d'un bien 
  */
 
@@ -41,12 +41,13 @@ public class ChoixAgence implements ActionListener {
         this.city = ci;
         
         try {           
-            /* Construction fenetre */
+            /** construction fenetre */
             fen = new JFrame();
             fen.setTitle("Affectation");
             fen.setSize(350, 250);
             fen.setLayout(null);            
             
+            /** requete pour recuperer les informations voulu et les mettre dans un tableau */
             String request = "SELECT * FROM agence;";
             ps = connect.getConnect().prepareStatement(request);
             set = ps.executeQuery(request);
@@ -59,6 +60,7 @@ public class ChoixAgence implements ActionListener {
             Object[] listAgence = arrayAgence.toArray();
             //System.out.println("liste des agences : " + listAgence);
             
+            /** labels et inputs */
             info = new JLabel("Le bien est situe a " + city);
             info.setBounds(80, 20, 250, 20);
             fen.add(info);
@@ -71,13 +73,13 @@ public class ChoixAgence implements ActionListener {
             cbAgence.setBounds(150, 50, 150, 20);
             fen.add(cbAgence);
             
-            // Bouton modifier 
+            /** bouton valider */
             valider = new JButton("Valider");
             valider.setBounds(70, 100, 100, 30);
             valider.addActionListener(this);
             fen.add(valider);
 
-            // Met en visible
+            /** met en visible */
             fen.setVisible(true);
         }
         catch (Exception e) {
@@ -92,6 +94,7 @@ public class ChoixAgence implements ActionListener {
             String agec = cbAgence.getSelectedItem().toString();
             
             AffectationBien ab = new AffectationBien(connect, id_bien, lastname_owner, agec);
+            /** ferme la fenetre apres l'execution de la requete */
             fen.dispose();
         }
         catch (Exception e) {

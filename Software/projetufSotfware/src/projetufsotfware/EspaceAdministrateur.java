@@ -11,7 +11,7 @@ import java.awt.event.*;
 
 /**
  *
- * @author Utilisateur
+ * @author Equipe B2B - B
  * cette classe sert de menu au administrateur
 */
 
@@ -29,60 +29,66 @@ public class EspaceAdministrateur implements ActionListener {
 	this.id_agent = id;
         
         try {
-            //construction de la fenetre
+            /** construction de la fenetre */
             JFrame fen = new JFrame();
             fen.setTitle("Espace Administrateur");
             fen.setSize(370, 210);
+            
+            /** arrete le programme apres le lancement et la realisation de la requete */
             fen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             fen.setLayout(null);
 
-            //bouton pour le menu de gestion des agences
+            /** bouton pour le menu de gestion des agences */
             agence = new JButton("Gestion agence");
             agence.setBounds(10, 20, 150, 40);
             agence.addActionListener(this);
             fen.add(agence);
 
-            //Bouton gestion agents
+            /** bouton gestion agents */
             agent = new JButton("Gestion agent");
             agent.setBounds(10, 70, 150, 40);
             agent.addActionListener(this);
             fen.add(agent);
 
-            // bouton preferences comptes
+            /** bouton preferences comptes */
             compte = new JButton("Mon compte");
             compte.setBounds(190, 20, 150, 40);
             compte.addActionListener(this);
             fen.add(compte);
 
-            // bouton d'affectation de bien a un agent
+            /** bouton d'affectation de bien a un agent */
             affect = new JButton("Affectation");
             affect.setBounds(190, 70, 150, 40);
             affect.addActionListener(this);
             fen.add(affect);
 
-            // Met en visible
+            /** met en visible */
             fen.setVisible(true);
         }
         catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Erreur du bouton : " + e.getMessage());
+            System.out.println("Erreur du menu admin : " + e.getMessage());
         }
     }
 	
     @Override
     public void actionPerformed(ActionEvent event) {
     	try {
+            /** depend de l'origine du clic */
             if ( event.getSource() == agence ) {
                GestionAgence cac = new GestionAgence(connect);
             }
-            if ( event.getSource() == agent ) {
+            else if ( event.getSource() == agent ) {
                 GestionEmploye aat = new GestionEmploye(connect);
             }
-            if ( event.getSource() == compte ) {
+            else if ( event.getSource() == compte ) {
                 MonCompte mc = new MonCompte(connect, id_agent);
             }
-            if ( event.getSource() == affect ) {
+            else if ( event.getSource() == affect ) {
                 RechercherAffectation ra = new RechercherAffectation(connect);
+            }
+            else {
+                System.out.println("Erreur dans les boutons");
             }
     	}
     	catch (Exception e) {

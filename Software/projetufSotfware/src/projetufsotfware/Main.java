@@ -11,7 +11,8 @@ import java.awt.event.*;
 
 /**
  *
- * @author Utilisateur
+ * @author Equipe B2B - B
+ * cette classe sert de page d'authentification des employes afin de pouvoir rentrer dans l'application.
  */
 
 public class Main extends JFrame implements ActionListener {
@@ -33,18 +34,18 @@ public class Main extends JFrame implements ActionListener {
     public Main(Connexion cc) throws SQLException{
         this.connect = cc;
         try {
-            // Fenetre pour afficher l'authentification
+            /** Fenetre pour afficher l'authentification */
             fen = new JFrame();
             fen.setTitle("Authentification");
             fen.setSize(350, 250);
             fen.setLayout(null);
 
-            // les input pour rentrer l'identifiant et le mot de passe
+            /** les input pour rentrer l'identifiant et le mot de passe*/
             identifiant = new JLabel("Adresse email :");
-            identifiant.setBounds(90,20,100,20);
+            identifiant.setBounds(90, 20, 100, 20);
             fen.add(identifiant);
             password = new JLabel("Mot de passe :");
-            password.setBounds(90,75,100,20);
+            password.setBounds(90, 75, 100, 20);
             fen.add(password);
 
             input_identifiant = new JTextField();
@@ -54,7 +55,7 @@ public class Main extends JFrame implements ActionListener {
             input_password.setBounds(90, 95, 150, 20);
             fen.add(input_password);
 
-            // Bouton de connexion
+            /** Bouton de connexion */
             button = new JButton("Se connecter");
             button.setBounds(90, 125, 150, 40);
             button.addActionListener(this);
@@ -82,6 +83,7 @@ public class Main extends JFrame implements ActionListener {
         }
     }
 
+    /** fonction qui vérifie si les informations rentrées */
     public void VerificationAuth (String mail, String passwd) {
         try {
             //System.out.println("dans verifAuth");
@@ -100,14 +102,16 @@ public class Main extends JFrame implements ActionListener {
             
             if (stat == 0) {
                 MenuEmploye me = new MenuEmploye(connect, id);
+                /** ferme la fenetre apres l'execution de la requete */
                 fen.dispose();
             }
             else if (stat == 1) {
                 EspaceAdministrateur ea = new EspaceAdministrateur(connect, id);
+                /** ferme la fenetre apres l'execution de la requete */
                 fen.dispose();
             } 
             else {
-                System.out.println("Erreur dans le if");
+                System.out.println("Erreur de connection, dans l'identifiant ou le mot de passe");
             }
         }
     	catch (Exception e) {
